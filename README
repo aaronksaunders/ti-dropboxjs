@@ -1,6 +1,6 @@
 Titanium Appcelerator Javascript Dropbox API
-===
-This API is ported from [https://github.com/sintaxi/node-dbox](https://github.com/sintaxi/node-dbox)
+
+This API is ported from https://github.com/sintaxi/node-dbox
 
 I was looking for a node API for dropbox and then realized that porting this to Appcelerator might be beneficial
 to others so here it is.
@@ -9,7 +9,7 @@ Enjoy
 
 Aaron K. Saunders
 Founder/CTO Clearly Innovative Inc
-[www.clearlyinnovative.com](www.clearlyinnovative.com)
-[blog.clearlyinnovative.com](blog.clearlyinnovative.com)
+www.clearlyinnovative.com
+blog.clearlyinnovative.com
 
 
