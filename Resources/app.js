@@ -115,7 +115,7 @@ var copy = function() {
 
 	var options = {
 	};
-	client.cp("IMG_0017.JPG", "IMG_0017_COPY.JPG", options, function(status, reply) {
+	client.cp("IMG_0017.JPG", "IMG_0017_COPY.JPG", false, options, function(status, reply) {
 		Ti.API.info(status);
 		Ti.API.info(reply);
 	});
