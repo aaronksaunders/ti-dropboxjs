@@ -501,7 +501,7 @@ exports.createClient = function(config) {
 				cb( e ? null : r.statusCode, b, r.getResponseHeaders()['x-dropbox-metadata']);
 			});
 		},
-		cp : function(from_path, to_path, options, cb) {
+		cp : function(from_path, to_path, from_copy_ref, options, cb) {
 
 			// ensure we have the tokens
 			options = extend(options, {
@@ -512,7 +512,12 @@ exports.createClient = function(config) {
 			var params = sign(options);
 
 			params["root"] = params.root || root;
-			params["from_path"] = from_path;
+			if( !from_copy_ref ) {
+				params["from_path"] = from_path;
+			}
+			else {
+				params["from_copy_ref"] = from_copy_ref;
+			}
 			params["to_path"] = to_path;
 
 			var body = JSON.stringify(params);
@@ -609,6 +614,32 @@ exports.createClient = function(config) {
 				"body" : body
 			};
 			request(args, function(e, r, b) {
+				cb( e ? null : r.statusCode, JSON.parse(b));
+			});
+		},
+		copyref : function(path, options, cb) {
+
+			// ensure we have the tokens
+			options = extend(options, {
+				oauth_token : this.accessToken,
+				oauth_token_secret : this.accessTokenSecret
+			});
+
+			var params = sign(options);
+
+			var urlX = "";
+			for(var a in params) {
+				if(a){
+					urlX += Titanium.Network.encodeURIComponent(a) + '=' + Titanium.Network.encodeURIComponent(params[a]) + '&';
+				}
+			}
+
+			var args = {
+				"method" : "GET",
+				"url" : "https://api.dropbox.com/1/copy_ref/" + (params.root || root) + "/" + escape(path) + "?" + urlX,
+				"encoding" : null
+			};
+			return request(args, function(e, r, b) {
 				cb( e ? null : r.statusCode, JSON.parse(b));
 			});
 		}
