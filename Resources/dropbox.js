@@ -204,7 +204,7 @@ exports.createClient = function(config) {
 				};
 
 				var wv = Ti.UI.createWebView({
-					url : 'https://www.dropbox.com/1/oauth/authorize?oauth_token=' + reply.oauth_token + '&oauth_callback=http://www.clearlyinnovative.com/oAuth.html'
+					url : 'https://www.dropbox.com/m/connect_login?cont=https://www.dropbox.com/1/oauth/authorize?oauth_token=' + reply.oauth_token + '&oauth_callback=http://www.clearlyinnovative.com/oAuth.html'
 				});
 				wv.addEventListener('load', authorizeUICallback);
 				var window = Ti.UI.createWindow({
