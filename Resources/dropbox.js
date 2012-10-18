@@ -204,7 +204,7 @@ exports.createClient = function(config) {
 				};
 
 				var wv = Ti.UI.createWebView({
-					url : 'https://www.dropbox.com/m/connect_login?cont=https://www.dropbox.com/1/oauth/authorize?oauth_token=' + reply.oauth_token + '&oauth_callback=http://www.clearlyinnovative.com/oAuth.html'
+					url : 'https://www.dropbox.com/1/oauth/authorize?oauth_token=' + reply.oauth_token + '&display=mobile&oauth_callback=http://www.clearlyinnovative.com/oAuth.html'
 				});
 				wv.addEventListener('load', authorizeUICallback);
 				var window = Ti.UI.createWindow({
@@ -238,7 +238,7 @@ exports.createClient = function(config) {
 		build_authorize_url : function(oauth_token, oauth_callback) {
 			var url = "https://www.dropbox.com/1/oauth/authorize?oauth_token=" + oauth_token;
 			if(oauth_callback) {
-				url = url + "&oauth_callback=" + oauth_callback;
+				url = url + "&display=mobile&oauth_callback=" + oauth_callback;
 			}
 			return url;
 		},
