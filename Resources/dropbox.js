@@ -144,14 +144,13 @@ exports.createClient = function(config) {
 
 		login : function(callback) {
 			var that = this;
-
 			that.request_token(function(status, reply) {
 				Ti.API.info(status);
 				Ti.API.info(reply);
-
+ 
 				var authorizeUICallback = function(e) {
-
-					if(e.url.indexOf('&oauth_token') != -1) {
+                    //Check if it's the final callback that contains a &uid otherwise missing...
+					if(e.url.indexOf('&uid=') !=-1 ) {
 						var tokens = e.url.split("&");
 						ACCESS_TOKEN_SECRET = tokens[1].split("=")[1];
 
@@ -177,10 +176,8 @@ exports.createClient = function(config) {
 						});
 						return;
 
-					} else if('https://www.dropbox.com/' === e.url) {
-						destroyAuthorizeUI();
-						return;
-					} else if(e.url.indexOf('#error=access_denied') != -1) {
+					} else if('https://www.dropbox.com/' === e.url || e.url.indexOf('not_approved=true') !=-1 || e.url.indexOf('#error=access_denied') != -1) {
+						//Something went wrong or the user didn't approve the access
 						destroyAuthorizeUI();
 						return;
 					}
